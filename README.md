@@ -47,15 +47,15 @@
 
 9. Add server to serve the page
     ```
-    npm i -D sirv-cli
+    npm i -D rollup-plugin-serve
     ```
 
-10. Add start to npm scripts:
+10. Add to plugins in rollup config
     ```
-        "start": "sirv public"
+        serve('public')
     ```
 
-11. Run and check at `localhost:8080`
+11. Run and check at `http://localhost:10001/`
     ```
-    npm run dev && npm run start
+    npm run dev
     ```    

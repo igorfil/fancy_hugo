@@ -1,5 +1,6 @@
-import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
+import serve from 'rollup-plugin-serve'
+import svelte from 'rollup-plugin-svelte';
 
 export default {
   // This `main.js` file we wrote
@@ -19,5 +20,8 @@ export default {
     }),
     // Tell any third-party plugins that we're building for the browser
     resolve({ browser: true }),
+
+    //serve page
+    serve('public')
   ],
 };
