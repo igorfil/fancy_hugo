@@ -2,21 +2,45 @@
 
 ## From the beginning
 
-Init empty npm project
-```
-npm init -y
-```
+1. Init empty npm project
+    ```
+    npm init -y
+    ```
 
-Add dev dependency. It will make it go into `package.json`
+2. Add dev dependency. It will make it go into `package.json`
 
-```
-npm install -D rollup
-```
+    ```
+    npm install -D rollup
+    ```
 
-Add Svelte
+3. Add Svelte
 
-```
-npm i svelte
-```
+    ```
+    npm i svelte
+    ```
 
-Write JS and Svelte - main.js and App.svelte
+4. Write JS and Svelte - main.js and App.svelte
+
+5. Add plugins - for resolving third-party packages and Svelte:
+    ```
+    npm i -D @rollup/plugin-node-resolve rollup-plugin-svelte
+    ```
+
+6. Create Rollup config
+    ```
+    touch rollup.config.js
+    ```    
+    It exports Rollup config object. Input - all inputs, starting point of bundling; Output - where the stuff goes; Plugins - plugins (yes, cap)
+
+7. Add `scripts` section to `package.json` to be able to invoke rollup with `rpm run x`
+
+    ```json
+    "scripts": {
+        "dev": "rollup -c -w"
+    } 
+    ```
+
+8. Add HTML
+    ```
+    touch public/index.html
+    ```    
