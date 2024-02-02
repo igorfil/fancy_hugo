@@ -548,7 +548,7 @@ var app = (function () {
 	}
 
 	const app = new App({
-	  target: document.body,
+	  target: document.getElementById('app'),
 	  props: {
 	    name: 'There',
 	  },
