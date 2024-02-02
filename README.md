@@ -59,3 +59,15 @@
     ```
     npm run dev
     ```    
+
+12. Add live reload
+    ```
+    npm i -D rollup-plugin-livereload
+    ```    
+
+    Update rollup config
+    ```
+    import livereload from 'rollup-plugin-livereload'
+
+    livereload("public/")
+    ```

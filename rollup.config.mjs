@@ -1,3 +1,4 @@
+import livereload from "rollup-plugin-livereload";
 import resolve from '@rollup/plugin-node-resolve';
 import serve from 'rollup-plugin-serve'
 import svelte from 'rollup-plugin-svelte';
@@ -22,6 +23,7 @@ export default {
     resolve({ browser: true }),
 
     //serve page
-    serve('public')
+    serve('public'),
+    livereload("public")
   ],
 };
