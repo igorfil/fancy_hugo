@@ -44,3 +44,18 @@
     ```
     touch public/index.html
     ```    
+
+9. Add server to serve the page
+    ```
+    npm i -D sirv-cli
+    ```
+
+10. Add start to npm scripts:
+    ```
+        "start": "sirv public"
+    ```
+
+11. Run and check at `localhost:8080`
+    ```
+    npm run dev && npm run start
+    ```    
