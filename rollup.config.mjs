@@ -8,7 +8,7 @@ export default {
   input: 'src/main.js',
   output: {
     // The destination for our bundled JavaScript
-    file: 'public/assets/bundle.js',
+    file: 'static/js/bundle.js',
     // Our bundle will be an Immediately-Invoked Function Expression
     format: 'iife',
     // The IIFE return value will be assigned into a variable called `app`

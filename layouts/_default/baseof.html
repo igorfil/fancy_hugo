@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<meta name="generator" content="Hugo 0.122.0">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Svelte App</title>
-    <script defer src="assets/bundle.js"></script>
+    <script defer src="js/bundle.js"></script>
   </head>
 
 <body>
-    
-<h1>Home Page</h1>
-
-<div id="app"></div>
-
+    {{ block "body" . }}{{ end }}
 </body>
 
 </html>
