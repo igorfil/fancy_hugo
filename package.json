@@ -4,10 +4,12 @@
   "description": "## From the beginning",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c; hugo",
     "autobuild": "rollup -c -w",
     "hugo:dev": "hugo server --bind=0.0.0.0 -D",
-    "dev": "run-p autobuild hugo:dev"
+    "tailwind:dev": "tailwindcss -i main.css -o ./static/css/bundle.css --watch",
+    "dev": "run-p autobuild tailwind:dev hugo:dev",
+    
+    "build": "rollup -c; tailwindcss -i main.css -o ./static/css/bundle.css --minify; hugo"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +19,6 @@
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.17",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.33",
     "rollup": "^4.9.6",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^1.1.1",
