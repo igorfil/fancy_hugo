@@ -150,34 +150,50 @@ The workflow
 
 ## Add TailwindCSS
 
-npm i -D tailwindcss postcss autoprefixer
+1. Install TailwindCss
+    ```
+    npm i -D tailwindcss 
+    ```
+2. Init Tailwind
+    ```bash
+    npx tailwindcss init
+    ```
+3. Adjust `tailwind.config.js` to pick up both Svelte and Hugo
+    ```js
+    content: [
+        "./src/**/*.svelte",
+        "./layouts/**/*.html",
+        "./layouts/_default/**/*.html",
+    ],
+    ```  
+4. Create style basic file
+    ```css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    ```
+5. Add Tailwind to .html and .svelte files
+6. Update npm run scripts:
+    ```js
+      "scripts": {
+        "autobuild": "rollup -c -w",
+        "hugo:dev": "hugo server --bind=0.0.0.0 -D",
+        "tailwind:dev": "tailwindcss -i main.css -o ./static/css/bundle.css --watch",
+        "dev": "run-p autobuild tailwind:dev hugo:dev",
+        
+        "build": "rollup -c; tailwindcss -i main.css -o ./static/css/bundle.css --minify; hugo"
+        },
+    ```
+Auto-reload works when running `npm run dev`, also it generates css when running `npm run build`
 
-npx tailwindcss init
+## How it works
 
-add `postcss.config.js`
+When running `npm run build` there are 3 stages:
 
-```js
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  }
-}
-```
+1. `rollup -c` will take Svelte components, generate `.js` and put into `./static` folder
+2. `tailwindcss -i main.css -o ./static/css/bundle.css --minify` will run Tailwind, it will take config from the file, and generate CSS for all .svelte and .html files, put into `./static` folder
+3. `hugo` will generate pages and put into `./public`, then it will copy everything (our new .js and .css files) from `./static` into `./public`
 
-adjust `tailwind.config.js`
+`npm run dev` will do the same but those processes will run and watch for changes. Whenever a change happends, it will do same stuff as above.
 
-```js
-content: [
-    "./src/**/*.svelte",
-    "./layouts/**/*.html",
-    "./layouts/_default/**/*.html",
-  ],
-```  
-
-create main.css
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
+Maybe there is a better way, I am not a frontend dev.
