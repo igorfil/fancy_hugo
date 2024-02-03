@@ -2,4 +2,4 @@
     export let name;
 </script>
 
-<p>Hello {name}</p>
+<p>Hello {name}!</p>

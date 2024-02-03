@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 var app = (function () {
 	'use strict';
 
@@ -507,17 +505,20 @@ var app = (function () {
 		let p;
 		let t0;
 		let t1;
+		let t2;
 
 		return {
 			c() {
 				p = element("p");
 				t0 = text("Hello ");
 				t1 = text(/*name*/ ctx[0]);
+				t2 = text("!");
 			},
 			m(target, anchor) {
 				insert(target, p, anchor);
 				append(p, t0);
 				append(p, t1);
+				append(p, t2);
 			},
 			p(ctx, [dirty]) {
 				if (dirty & /*name*/ 1) set_data(t1, /*name*/ ctx[0]);
@@ -552,7 +553,7 @@ var app = (function () {
 	const app = new App({
 	  target: document.getElementById('app'),
 	  props: {
-	    name: 'There',
+	    name: 'from Svelte',
 	  },
 	});
 

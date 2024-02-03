@@ -146,46 +146,73 @@
     ```
     hugo new site . --force
     ```
-
-    rm -rf assets content data i18n static themes
-
-    Create layouts/home.html, layouts/_default/baseof.html
-
+2. Remove dirs that are not needed right now
     ```
-{{ define "body" }}
-<h1>Home Page</h1>
-
-<div id="app"></div>
-{{ end }}
+    rm -rf assets content data i18n themes
     ```
-
+3. Create js folder
     ```
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Svelte App</title>
-    <script defer src="assets/bundle.js"></script>
-  </head>
-
-<body>
-    {{ block "body" . }}{{ end }}
-</body>
-
-</html>
+    mkdir static/js
     ```
+4. Create basic layout:    
+    - Create layouts/home.html
+    ```html
+    {{ define "body" }}
+    <h1>Home Page</h1>
 
-hugo new theme test    
-echo "theme = 'test'" >> hugo.toml
-    import livereload from 'rollup-plugin-livereload'
-
-    livereload("public/")
+    <div id="app"></div>
+    {{ end }}
     ```
+    - layouts/_default/baseof.html
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Svelte App</title>
+        <script defer src="js/bundle.js"></script>
+    </head>
 
-Hugo will look into /static folder and copy whatever is there into /public. So we want nom and rollup to output JS and css into static, so that Hugo will copy it to public.
+    <body>
+        {{ block "body" . }}{{ end }}
+    </body>
+
+    </html>
+    ```
+    
+The idea is that Hugo will look into /static folder and copy whatever is there into /public. So we want nom and rollup to output JS and css into static, so that Hugo will copy it to public.
 
 The workflow
 1. Run npm run ... to process Svelte and Tailwind
 2. Run hugo to copy all that stuff into public directory
+
+## Integrate Hugo into rollup
+
+1. Install additional rollup plugins
+    ```bash
+    npm i -D npm-run-all
+    npm i -D @rollup/plugin-terser
+    ```
+2. Update scripts section in `package.json`. This will run Rollup and Hugo automatically. First step - rollup generates JS and puts into /static, then Hugo deploys it to /public
+    ```json
+    "scripts": {
+        "build": "rollup -c; hugo",
+        "autobuild": "rollup -c -w",
+        "dev": "run-p autobuild hugo:dev",
+        "hugo:dev": "hugo server --bind=0.0.0.0 -D"
+    }
+    ```
+3. Update rollup config:
+    ```js
+    const production = !process.env.ROLLUP_WATCH;
+    ...
+    production && terser(),
+    ...
+    watch: {
+		clearScreen: false,
+		include: 'src/**'
+	}
+    ```
+

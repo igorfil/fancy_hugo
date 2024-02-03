@@ -1,7 +1,8 @@
-import livereload from "rollup-plugin-livereload";
 import resolve from '@rollup/plugin-node-resolve';
-import serve from 'rollup-plugin-serve'
 import svelte from 'rollup-plugin-svelte';
+import terser from '@rollup/plugin-terser';
+
+const production = !process.env.ROLLUP_WATCH;
 
 export default {
   // This `main.js` file we wrote
@@ -16,14 +17,20 @@ export default {
   },
   plugins: [
     svelte({
+      // enable run-time checks when not in production
+			dev: !production,
       // Tell the svelte plugin where our svelte files are located
       include: 'src/**/*.svelte',
     }),
     // Tell any third-party plugins that we're building for the browser
     resolve({ browser: true }),
 
-    //serve page
-    serve('public'),
-    livereload("public")
+    // If we're building for production (npm run build
+		// instead of npm run dev), minify
+		production && terser(),
   ],
+  watch: {
+		clearScreen: false,
+		include: 'src/**'
+	}
 };
