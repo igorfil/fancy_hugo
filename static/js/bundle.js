@@ -85,6 +85,17 @@ var app = (function () {
 	}
 
 	/**
+	 * @param {Element} node
+	 * @param {string} attribute
+	 * @param {string} [value]
+	 * @returns {void}
+	 */
+	function attr(node, attribute, value) {
+		if (value == null) node.removeAttribute(attribute);
+		else if (node.getAttribute(attribute) !== value) node.setAttribute(attribute, value);
+	}
+
+	/**
 	 * @param {Element} element
 	 * @returns {ChildNode[]}
 	 */
@@ -513,6 +524,7 @@ var app = (function () {
 				t0 = text("Hello ");
 				t1 = text(/*name*/ ctx[0]);
 				t2 = text("!");
+				attr(p, "class", "text-green-500");
 			},
 			m(target, anchor) {
 				insert(target, p, anchor);

@@ -2,4 +2,4 @@
     export let name;
 </script>
 
-<p>Hello {name}!</p>
+<p class="text-green-500">Hello {name}!</p>
