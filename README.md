@@ -1,5 +1,21 @@
 # Hugo + Svelte + Tailwind (while using Rollup)
 
+This is a template for generating static website with Hugo, but that uses TailwindCSS and has dynamic components made with Svelte. 
+
+## How it works
+
+When running `npm run build` there are 3 stages:
+
+1. `rollup -c` will take Svelte components, generate `.js` and put into `./static` folder
+2. `tailwindcss -i main.css -o ./static/css/bundle.css --minify` will run Tailwind, it will take config from the file, and generate CSS for all .svelte and .html files, put into `./static` folder
+3. `hugo` will generate pages and put into `./public`, then it will copy everything (our new .js and .css files) from `./static` into `./public`
+
+`npm run dev` will do the same but those processes will run and watch for changes. Whenever a change happends, it will do same stuff as above.
+
+Maybe there is a better way, I am not a frontend dev.
+
+
+
 ## From the beginning
 
 1. Init empty npm project
@@ -186,14 +202,3 @@ The workflow
     ```
 Auto-reload works when running `npm run dev`, also it generates css when running `npm run build`
 
-## How it works
-
-When running `npm run build` there are 3 stages:
-
-1. `rollup -c` will take Svelte components, generate `.js` and put into `./static` folder
-2. `tailwindcss -i main.css -o ./static/css/bundle.css --minify` will run Tailwind, it will take config from the file, and generate CSS for all .svelte and .html files, put into `./static` folder
-3. `hugo` will generate pages and put into `./public`, then it will copy everything (our new .js and .css files) from `./static` into `./public`
-
-`npm run dev` will do the same but those processes will run and watch for changes. Whenever a change happends, it will do same stuff as above.
-
-Maybe there is a better way, I am not a frontend dev.
